@@ -83,6 +83,7 @@ let start = document.getElementById('start'),
 				this.getAddExpenses();
 				this.getAddIncome();
 				this.getInfoDeposit();
+				this.changePercent();
 				this.getBudget();
 				this.calcPeriod();
 				
@@ -254,27 +255,17 @@ let start = document.getElementById('start'),
 			}
 
 			changePercent(){
+				if( !(depositPercent.value >= 0  || depositPercent.value <= 100)){
+					alert('"Введите корректное значение в поле проценты"');
+					start.setAttribute('disabled' , 'true');
+				} 
 				const valueSelect = this.value;
 				if (valueSelect === 'other'){
 					depositPercent.style.display = 'inline-block';
-					
 				} else {
 					depositPercent.style.display = 'none';
-					depositPercent.value = '';
-					
-				}
-
-
-				if (!(depositPercent.value >= 0  && depositPercent.value <= 100)){
-					alert('"Введите корректное значение в поле проценты"');
-				} else {
-					start.setAttribute('disabled' , 'true');
-					return;
-				}
-			
+				}	
 			}
-
-			
 
 			depositHandler(){
 				if(depositCheck.checked){
@@ -285,8 +276,10 @@ let start = document.getElementById('start'),
 				} else {
 					depositBank.style.display = 'none';
 					depositAmount.style.display = 'none';
+					depositPercent.style.display = 'none';
 					depositBank.value = '';
 					depositAmount.value = '';
+					depositPercent.value = '';
 					this.deposit = false;
 					depositBank.removeEventListener('change', this.changePercent);
 				}
