@@ -82,6 +82,7 @@ let start = document.getElementById('start'),
 				this.getExpensesMonth();
 				this.getAddExpenses();
 				this.getAddIncome();
+				this.percentItem();
 				this.getInfoDeposit();
 				this.changePercent();
 				this.getBudget();
@@ -254,16 +255,22 @@ let start = document.getElementById('start'),
 				return  this.budgetMonth * periodSelect.value;
 			}
 
-			changePercent(){
-				if( !(depositPercent.value >= 0  || depositPercent.value <= 100)){
+			percentItem (){
+				if( !(this.isNumbers(depositPercent.value))+depositPercent.value >= 0  || +depositPercent.value <= 100){
 					alert('"Введите корректное значение в поле проценты"');
-					start.setAttribute('disabled' , 'true');
-				} 
+					start.disabled = true;
+				} else {
+					start.disabled = false;
+				}
+			}
+
+			changePercent(){
+				
 				const valueSelect = this.value;
 				if (valueSelect === 'other'){
 					depositPercent.style.display = 'inline-block';
 				} else {
-					depositPercent.style.display = 'none';
+					// depositPercent.style.display = 'none';
 				}	
 			}
 
