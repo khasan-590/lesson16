@@ -1,5 +1,7 @@
 "use strict";
-
+function isNumbers(n) {
+				return !isNaN(parseFloat(n)) && isFinite(n);
+			}
 function isString(n) {
 	return !isNaN(parseFloat(n)) && isFinite(n);
 }
@@ -73,7 +75,7 @@ let start = document.getElementById('start'),
 	
 				this.budget = +salaryAmount.value;
 
-				this.isNumbers();
+				
 				this.getIncome();
 				this.getExpenses();
 				this.getExpensesMonth();
@@ -83,7 +85,9 @@ let start = document.getElementById('start'),
 				
 				this.getInfoDeposit();
 				this.percentItem();
+				
 				this.getBudget();
+				
 				this.calcPeriod();
 				
 				this.showResult();
@@ -103,9 +107,6 @@ let start = document.getElementById('start'),
 				periodSelect.addEventListener('input', function () {
 					incomePeriodValue.value = _this.calcPeriod();
 				});
-			}
-			isNumbers(n) {
-				return !isNaN(parseFloat(n)) && isFinite(n);
 			}
 			addExpensesBlock () {
 				const cloneExpensesItem = expensesItems[0].cloneNode(true);
@@ -177,6 +178,12 @@ let start = document.getElementById('start'),
 				const inputText = document.querySelectorAll('.data input[type=text]');
 				const resultInputAll = document.querySelectorAll('.result input[type=text]');
 	
+				// const depositReset = document.querySelector('.data input[checkbox]');
+				// depositReset.value = '';
+
+				getCheckBox.value = '';
+				depositBank.style.display = 'none';
+				depositAmount.style.display = 'none';
 				inputText.forEach(function(elem){
 					elem.value = '';
 					elem.removeAttribute('disabled');
@@ -186,7 +193,10 @@ let start = document.getElementById('start'),
 				resultInputAll.forEach(function(elem){
 					elem.value = '';
 				});
-	
+				
+
+
+
 				for (let i = 1; i < incomeItems.length; i++){
 					incomeItems[i].parentNode.removeChild(incomeItems[i]);
 					incomePlus.style.display = 'block';
@@ -243,25 +253,26 @@ let start = document.getElementById('start'),
 					return('Что то пошло не так');
 				}
 			}
-			getInfoDeposit  () {
-			if(this.deposit){
-				this.precentDeposit = depositPercent.value;
-				this.moneyDeposit = depositAmount.value;
-				}
+		getInfoDeposit  () {
+		if(this.deposit){
+			this.precentDeposit = depositPercent.value;
+			this.moneyDeposit = depositAmount.value;
 			}
-				calcPeriod  ()  {
-					return  this.budgetMonth * periodSelect.value;
-				}
+		}
+		calcPeriod  ()  {
+			return  this.budgetMonth * periodSelect.value;
+			}
 	
-					percentItem (){
-					if(depositPercent.value >= 0 || depositPercent === 100) {
-						start.setAttribute('disabled' , 'true');
-						alert('"Введите корректное значение в поле проценты"');
-					} else if (depositPercent.value !== this.isNumbers) {
-						alert('"Введите корректное значение в поле проценты"');
-					}
-	}
-				changePercent() {
+		percentItem (){
+			if(depositPercent.value >= 0 || depositPercent === 100) {
+				start.setAttribute('disabled' , 'true');
+					alert('"Введите корректное значение в поле проценты"');
+			} else if (depositPercent.value !== this.isNumbers) {
+					alert('"Введите корректное значение в поле проценты"');
+				}
+		}
+		
+			changePercent() {
  	 	const valueSelect = this.value;
     if (valueSelect === 'other') {
       depositPercent.value = '';
